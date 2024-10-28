@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client Details{% endblock %}
+
+{% block content %}
+<h1>Détails du Client</h1>
+<p><strong>Nom :</strong> {{ client.surname }}</p>
+<p><strong>Téléphone :</strong> {{ client.telephone }}</p>
+<p><strong>Adresse :</strong> {{ client.adresse }}</p>
+
+<h2>Dettes</h2>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Montant</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Montant versé</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set totalMontant = 0 %}
+            {% set totalMontantVerser = 0 %}
+            {% for dette in dettes %}
+                <tr>
+                    <td>{{ dette.montant }}</td>
+                    <td>{{ dette.createAt|date('d/m/Y') }}</td>
+                    <td>{{ dette.montantVerser }}</td>
+                </tr>
+                {% set totalMontant = totalMontant + dette.montant %}
+                {% set totalMontantVerser = totalMontantVerser + dette.montantVerser %}
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune dette trouvée pour ce client.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><strong>Total :</strong> {{ totalMontant }}</td>
+                <td></td>
+                <td><strong>Total versé :</strong> {{ totalMontantVerser }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

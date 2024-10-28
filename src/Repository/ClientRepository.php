@@ -40,4 +40,17 @@ class ClientRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.surname', 'ASC') 
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findClientById(int $id): ?Client
+    {
+        return $this->find($id);
+    }
 }

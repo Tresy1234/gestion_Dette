@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une Dette{% endblock %}
+
+{% block content %}
+
+
+<form action="{}" method="POST" class="mb-3">
+    <div class="mb-3">
+        <label for="montant" class="form-label">Montant</label>
+        <input type="number" step="0.01" name="montant" id="montant" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="montantVerser" class="form-label">Montant Versé</label>
+        <input type="number" step="0.01" name="montantVerser" id="montantVerser" class="form-control" value="0" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter Dette</button>
+</form>
+
+<a href="{{ path('client.index') }}" class="btn btn-secondary">Retour à la liste des clients</a>
+{% endblock %}

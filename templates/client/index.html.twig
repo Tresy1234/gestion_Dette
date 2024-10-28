@@ -1,22 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientController!{% endblock %}
+{% block title %}Liste des Clients{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Liste des Clients</h2>
+        <a href="{{ path('dette.create') }}" class="btn btn-success">Créer un Client</a>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <form action="{{ path('client.create') }}" method="POST" class="mb-3">
+        <div class="row mb-3 align-items-end">
+            <div class="col-md-4">
+                <label for="surname" class="form-label">Surname</label>
+                <input type="text" class="form-control" id="surname" name="surname" placeholder="surname" required>
+            </div>
+            <div class="col-md-4">
+                <label for="telephone" class="form-label">Téléphone</label>
+                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Téléphone" required>
+            </div>
+            <div class="col-md-4">
+                <label for="adresse" class="form-label">Adresse</label>
+                <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/pc/symfony/Gestion_dette/src/Controller/ClientController.php</code></li>
-        <li>Your template at <code>C:/Users/pc/symfony/Gestion_dette/templates/client/index.html.twig</code></li>
-    </ul>
-
-    
-</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.surname }}</td>
+                    <td>{{ client.telephone }}</td>
+                    <td>{{ client.adresse }}</td>
+                    <td>
+                        <a href="{{ path('client-dette', {id: client.id}) }}" class="btn btn-primary btn-sm">Dettes</a>
+                        {# <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Supprimer</a> #}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
